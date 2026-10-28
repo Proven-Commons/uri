@@ -26,10 +26,6 @@ namespace Uri.Proofs
 
 open Uri
 
-/-- No segment of the list is a dot segment. -/
-def NoDots (segs : List (List Char)) : Prop :=
-  ∀ s ∈ segs, s ≠ ['.'] ∧ s ≠ ['.', '.']
-
 /-- Membership survives dropping a prefix. -/
 theorem mem_of_mem_drop {x : List Char} {l : List (List Char)} :
     ∀ {n : Nat}, x ∈ l.drop n → x ∈ l := by

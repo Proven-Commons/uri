@@ -73,6 +73,15 @@ def splitPath (p : List Char) : Bool × List (List Char) :=
 def printPath (lead : Bool) (segs : List (List Char)) : List Char :=
   (if lead then ['/'] else []) ++ joinSegs segs
 
+/-- No segment of the list is a dot segment: neither `.` nor
+    `..`. The claim proved about `removeDotSegments` is that
+    its result, taken apart again, has this property. The
+    definition stands with the code under proof, beside the
+    functions it speaks of, so the statement of that claim
+    depends on nothing in the proof files. -/
+def NoDots (segs : List (List Char)) : Prop :=
+  ∀ s ∈ segs, s ≠ ['.'] ∧ s ≠ ['.', '.']
+
 /-- Drop the leading dot pieces of a relative path's segments,
     as rules A and D of section 5.2.4 direct: a dot piece that
     has another piece after it is dropped, and the walk repeats;

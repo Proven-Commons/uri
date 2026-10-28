@@ -191,3 +191,33 @@ unknown operation, the wrong number of fields, a number that
 is not plain decimal digits, or a character code that is not
 a Unicode scalar value. A line may end in LF or CR LF;
 nothing else around a request is ignored.
+
+## Properties and their theorems
+
+Each property a reader can check in the page (`README.md`)
+names its theorem. The theorems are stated in `Spec.lean`
+and proved in `Proofs/SpecProofs.lean`. The five claims are
+theorems for all inputs; the worked examples are single
+inputs, one for each case named, and the tests in `tests/`
+cover the same ground on many more inputs.
+
+| Property | Theorem |
+|----------|---------|
+| Recomposing a split gives the original string back, for every string | `Spec.print_split` |
+| Splitting a recomposed value gives the value back, for well formed values | `Spec.split_print` |
+| After dot segment removal, a path taken apart again has no `.` or `..` segment | `Spec.removeDotSegments_noDots` |
+| Removing dot segments a second time changes nothing | `Spec.removeDotSegments_idempotent` |
+| Resolving against a base that has a scheme gives a target that has a scheme | `Spec.resolve_scheme` |
+| Against the base `http://a/b/c/d;p?q`, the reference `g` resolves to `http://a/b/c/g` | `Spec.resolves_g` |
+| Against the same base, the reference `./g` resolves to `http://a/b/c/g` | `Spec.resolves_dot_slash_g` |
+| Against the same base, the reference `g/` resolves to `http://a/b/c/g/` | `Spec.resolves_g_slash` |
+| Against the same base, the reference `/g` resolves to `http://a/g` | `Spec.resolves_slash_g` |
+| Against the same base, the reference `//g` resolves to `http://g` | `Spec.resolves_slashes_g` |
+| Against the same base, the reference `?y` resolves to `http://a/b/c/d;p?y` | `Spec.resolves_query_y` |
+| Against the same base, the reference `g?y` resolves to `http://a/b/c/g?y` | `Spec.resolves_g_query_y` |
+| Against the same base, the reference `#s` resolves to `http://a/b/c/d;p?q#s` | `Spec.resolves_fragment_s` |
+| Against the same base, the reference `g#s` resolves to `http://a/b/c/g#s` | `Spec.resolves_g_fragment_s` |
+| Against the same base, the reference `..` resolves to `http://a/b/` | `Spec.resolves_dotdot` |
+| Against the same base, the reference `../g` resolves to `http://a/b/g` | `Spec.resolves_dotdot_g` |
+| Removing dot segments from `/a/b/c/./../../g` gives `/a/g` | `Spec.removes_dots_rfc_example` |
+| Removing dot segments from `mid/content=5/../6` gives `mid/6` | `Spec.removes_dots_mid_example` |

@@ -1,0 +1,44 @@
+# Read by bar/check.py in Proven-Commons/mission.
+# See playbook/verified-bar.md there for what each field means.
+
+[project]
+name = "uri"
+# "in-progress" until every bar item passes, then "verified".
+status = "in-progress"
+page = "README.md"
+# GitHub handles of everyone who wrote the specification.
+spec_authors = ["abu-aska"]
+# The program people run. A change to it voids the approval.
+entry_points = ["Main.lean"]
+
+[spec]
+files = ["SPEC.md", "Spec.lean"]
+# The code under proof: the functions the statements are about.
+code = [
+  # The data type the statements are about.
+  "Uri.Uri",
+  # The component tests, recomposition, and well formedness.
+  "Uri.isAlpha", "Uri.isDigit", "Uri.isSchemeChar", "Uri.schemeOk",
+  "Uri.withDelim", "Uri.print", "Uri.NoSchemePrefix", "Uri.WF",
+  # The split of Appendix B.
+  "Uri.splitFirst", "Uri.takeUntil", "Uri.schemeOf", "Uri.splitScheme",
+  "Uri.splitAuthority", "Uri.split",
+  # Paths, dot segment removal, merge, and resolution.
+  "Uri.consSeg", "Uri.splitSegs", "Uri.joinSegs", "Uri.splitPath",
+  "Uri.printPath", "Uri.NoDots", "Uri.stripLeadDots", "Uri.lastPiece",
+  "Uri.foldRds", "Uri.rdsSegs", "Uri.removeDotSegments",
+  "Uri.upToLastSlash", "Uri.mergePaths", "Uri.resolvedPath",
+  "Uri.resolve",
+]
+
+# One entry per approval, added in a pull request the reviewer approves.
+# [[spec.approval]]
+# reviewer = "github-handle"
+# date = "2026-11-02"
+# sha256 = "..."
+# record = "https://github.com/Proven-Commons/uri/pull/<n>"
+
+[tests]
+results = "tests/TEST-RESULTS.md"
+command = "python3 tests/run_tests.py"
+files = ["tests/run_tests.py"]
