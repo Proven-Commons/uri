@@ -1,0 +1,16 @@
+name = "uri"
+version = "0.1.0"
+defaultTargets = ["Uri", "Proofs", "uri"]
+
+[[lean_lib]]
+name = "Uri"
+
+[[lean_lib]]
+name = "Proofs"
+
+[[lean_lib]]
+name = "Spec"
+
+[[lean_exe]]
+name = "uri"
+root = "Main"
